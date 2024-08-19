@@ -1,0 +1,9 @@
+{% load static %}
+
+{% block 'content' %}
+    <div class="monitoring-unknown">
+    {% for user in data %}
+        <img src="/{{ user }}">
+    {% endfor %}
+    </div>                    
+{% endblock %}

@@ -1,0 +1,94 @@
+<!-- {% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block 'func' %}
+onload="known()"
+{% endblock %}
+
+{% block 'style-script' %}
+<script src="{% static 'jquery/jquery.min.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+    <div class="user-analysis">
+        <div class="user-analysis-card">
+
+            <div class="header">
+                <p class="active" onclick="known()" id="known-users">Tanalan Şahsyýetler</p>
+                <p onclick="unknown()" id="unknown-users">Nätanyş Şahsyýetler</p>
+            </div>
+            <div class="body" id="user-analysis-card">
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        const known_var = document.querySelector("#known-users")
+        const unknown_var = document.querySelector("#unknown-users")
+        function known() {
+            if (unknown_var.classList.value = 'active') {
+                unknown_var.classList.remove("active")
+            }
+            known_var.classList.add("active")
+            $.ajax({
+                type: "GET",
+                url : "known-users-analysis",
+                success:function(response){
+                    document.querySelector("#user-analysis-card").innerHTML = response
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+        }
+        function unknown(){
+            if (known_var.classList.value = 'active') {
+                known_var.classList.remove("active")
+            }
+            unknown_var.classList.add("active")
+            $.ajax({
+                type: "GET",
+                url : "unknown-users-analysis",
+                success:function(response){
+                    document.querySelector("#user-analysis-card").innerHTML = response
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+        }
+        function open_image(e){
+            document.querySelector(".open-image").innerHTML= `<img src="/${e}" alt="">`
+            document.querySelector(".open-image").classList.remove("close")
+        }
+        function close_image(e) {
+            document.querySelector(".open-image").classList.add("close")
+        }
+    </script>
+    <script>
+        function delete_unknown(e) {
+            $.ajax({
+                type: "GET",
+                url : `unknown-users-delete/${e}`,
+                success:function(response){
+                    unknown()
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+        }
+        function delete_known(e) {
+            $.ajax({
+                type: "GET",
+                url : `known-users-delete/${e}`,
+                success:function(response){
+                    known()
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+        }
+    </script>
+{% endblock %} -->

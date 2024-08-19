@@ -1,0 +1,668 @@
+@import 'abstracts';
+@import 'components';
+@import 'animations';
+
+/** GENERAL SETTINGS **/
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px; // 1 rem 10px
+}
+
+body {
+  font-family: $secondary-font;
+  color: $gray-color;
+  background-color: $body-back;
+}
+
+main {
+  overflow: hidden;
+}
+
+.container {
+  max-width: 184rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+section {
+  padding: 8rem 0;
+
+  @include media(medium) {
+    padding: 4rem 0;
+  }
+
+  @include media(small) {
+    padding: 2rem 0;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: $primary-font;
+  color: $primary-color;
+  font-weight: 300;
+  letter-spacing: .3rem;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 7rem;
+
+  @include media(large) {
+    font-size: 5rem;
+  }
+
+}
+
+h2 {
+  font-size: 5rem;
+  color: $light-color;
+
+  @include media(large) {
+    font-size: 3.6rem;
+  }
+}
+
+h3 {
+  font-size: 2.4rem;
+}
+
+h4 {
+  font-size: 2rem;
+  color: $light-color;
+}
+
+a {
+  text-decoration: none;
+
+  font-family: $primary-font;
+  color: $light-color;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+}
+
+
+/**  RESPONSIVE HEADER **/
+
+.open-menu,
+.close-menu {
+  font-size: 3rem;
+  color: $light-color;
+  cursor: pointer;
+  display: none;
+  transition: $general-transition;
+
+  @include media(large) {
+    display: block;
+  }
+}
+
+.open-menu {
+  margin-right: 2rem;
+}
+
+.close-menu {
+  @include media(large) {
+    position: absolute;
+    top: 2.5rem;
+    right: 2.3rem;
+  }
+}
+
+.open-menu:hover,
+.close-menu:hover {
+  color: $primary-color;
+}
+
+// header style 
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background-color: $header-back;
+
+  .header {
+    @include flex-display(flex, center, space-between);
+    padding: 1rem 0;
+
+    .logo {
+      width: 4.3rem;
+      height: 3rem;
+      margin: 0 1rem;
+    }
+
+    .profile {
+      @include flex-display(flex, center, flex-end);
+
+      img {
+        width: 5rem;
+        height: 5rem;
+        margin: 0 1rem;
+        border-radius: .5rem;
+      }
+
+      #clock {
+        font-size: 2.4rem;
+        font-weight: bold;
+
+        &:hover {
+          color: white;
+          cursor: pointer;
+        }
+
+      }
+
+      p {
+        text-align: right;
+        font-size: 1.4rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      span {
+        font-size: 2.4rem;
+        color: $light-font-color;
+        padding: 0 1rem;
+        margin-right: 1rem;
+
+        &:hover {
+          cursor: pointer;
+          color: white;
+        }
+      }
+    }
+  }
+
+}
+
+.wrapper {
+  padding: 3rem 0;
+
+  .main {
+    @include flex-display(flex, flex-start, space-between);
+    flex-wrap: wrap;
+
+    .sidebar {
+      position: sticky;
+      top: 9.5rem;
+      background-color: white;
+      border-radius: .3rem;
+      box-shadow: 0 0 2rem rgb(190, 188, 188);
+      min-height: 80rem;
+      width: 15%;
+      margin: 0 1rem;
+      padding: 0 1rem;
+      // @include media(large) {
+      //   width: 25%;
+      // }
+      // @include media(medium) {
+      //   width: 30%;
+      // }
+      // @include media(small) {
+      //   width: 100%;
+      // }
+
+      &-title {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        color: $font-color;
+        padding: 0 1rem;
+        padding-top: 3rem;
+
+      }
+
+      ul {
+
+        li {
+          margin: 1rem 0;
+          border-radius: .5rem;
+          padding: .7rem;
+
+          &:hover {
+            background-color: $body-back;
+            cursor: pointer;
+
+            a {
+
+              color: $font-color;
+
+              span {
+                opacity: 1;
+              }
+            }
+          }
+
+          &.active {
+            background-color: $body-back;
+
+            a {
+              color: $font-color;
+
+              span {
+                opacity: 1;
+              }
+            }
+          }
+
+          a {
+            @include flex-display(flex, center, flex-start);
+            color: $light-font-color;
+            transition: all ease .2s;
+
+            span {
+              opacity: .8;
+            }
+
+            p {
+              font-size: 1.4rem;
+              margin: 0 1rem;
+            }
+          }
+        }
+      }
+    }
+
+    .content {
+      min-height: 85rem;
+      width: 81%;
+      margin: 0 1rem;
+      // @include media(large) {
+      //   width: 73%;
+      // }
+      // @include media(medium) {
+      //   width: 68%;
+      // }
+      // @include media(small) {
+      //   width: 100%;
+      // }
+      @include flex-display(flex, flex-start, space-between);
+      flex-wrap: wrap;
+
+      .camera {
+        width: 71%;
+        border-radius: .5rem;
+        height: auto;
+        // min-height: 80rem;
+        background-color: white;
+        padding: 1rem;
+
+        img {
+          border-radius: .5rem;
+        }
+      }
+
+      .monitoring-known-users-list {
+        border-radius: .5rem;
+        width: 28%;
+        max-height: 80rem;
+        background-color: white;
+        overflow: auto;
+
+        &-header {
+          @include flex-display(flex, center, flex-start);
+
+          h1 {
+            width: 50%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            text-align: center;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            padding: 1rem 0;
+            color: white;
+            background-color: $gray-color;
+            border-bottom: .2rem solid $gray-color;
+            transition: all ease .4s;
+
+            &.active {
+              color: $primary-color;
+            }
+
+            &:hover {
+              color: $primary-color;
+              cursor: pointer;
+            }
+          }
+        }
+
+        .monitoring-unknown {
+          @include flex-display(flex, center, center);
+          flex-wrap: wrap;
+          width: 100%;
+
+          img {
+            width: 40%;
+            margin: 1rem;
+          }
+        }
+
+        .user-info {
+          @include flex-display(flex, center, flex-start);
+          margin: 1rem;
+          border-bottom: .2rem solid $gray-color;
+          padding: 1rem;
+
+          img {
+            width: 4rem;
+            height: 4rem;
+            border-radius: .5rem;
+            margin-right: 1rem;
+          }
+
+          p {
+            width: 35%;
+            font-size: 1.4rem;
+            padding: 0 .5rem;
+          }
+
+          .job {
+            width: 50%;
+          }
+
+        }
+
+
+      }
+    }
+
+    .registration {
+      min-height: 85rem;
+      width: 81%;
+      margin: 0 1rem;
+      background-color: white;
+      border-radius: .5rem;
+      @include flex-display(flex, center, space-between);
+
+      form {
+        width: 45%;
+        @include flex-display(flex, flex-start, flex-start);
+        flex-direction: column;
+        flex-wrap: wrap;
+        padding: 3rem;
+        padding-bottom: 8rem;
+        position: relative;
+
+        div {
+          @include flex-display(flex, flex-start, flex-start);
+          flex-direction: column;
+          margin: 1rem 0;
+          width: 100%;
+
+          label {
+            font-size: 1.6rem;
+            color: $font-color;
+            margin: .5rem 0;
+          }
+
+          input {
+            box-shadow: 0 0 .6rem rgb(170, 167, 167);
+            background-color: $body-back;
+            width: 100%;
+            padding: 1rem .5rem;
+            border-radius: .5rem;
+            border: none;
+            outline: none;
+          }
+
+          select {
+            box-shadow: 0 0 .6rem rgb(170, 167, 167);
+            width: 100%;
+            padding: 1rem .5rem;
+            background-color: $body-back;
+            border: none;
+            outline: none;
+            border-radius: .5rem;
+          }
+        }
+
+        input[type="submit"] {
+          display: block;
+          padding: .7rem 1.4rem;
+          position: absolute;
+          margin-top: 3rem;
+          bottom: 1rem;
+          right: 3rem;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+      }
+
+      .registration-camera {
+        padding: 3rem;
+        width: 50%;
+
+        .tablet-user {
+          @include flex-display(flex, center, center);
+          position: relative;
+
+          .user {
+            position: absolute;
+            width: 50%;
+          }
+
+          h1 {
+            font-size: 8rem;
+            font-weight: bold;
+          }
+
+          a {
+            font-size: 4.8rem;
+            color: $font-color;
+            background-color: $body-back;
+            padding: 1rem;
+            border-radius: .5rem;
+            box-shadow: .1rem .1rem 1rem rgb(168, 167, 167);
+
+            &:active {
+              background-color: rgb(196, 195, 195);
+            }
+          }
+        }
+
+        img {
+          width: 100%;
+        }
+      }
+
+    }
+
+    .observation {
+      min-height: 85rem;
+      width: 81%;
+      margin: 0 1rem;
+      background-color: white;
+      border-radius: .5rem;
+      padding: .5rem;
+      padding-top: 0;
+      position: relative;
+
+      &-header {
+        width: 100%;
+        height: 3rem;
+
+        ul {
+          width: 100%;
+          height: 100%;
+          border-bottom: .3rem solid $body-back;
+          padding-bottom: 1rem;
+
+
+          @include flex-display(flex, center, flex-start);
+
+          li {
+            width: 8%;
+            height: 100%;
+            font-size: 1.4rem;
+            color: $font-color;
+            transition: all ease .4s;
+            margin-right: .5rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            line-height: 1rem;
+            text-align: center;
+            border-bottom: .3rem solid $body-back;
+
+            &.active {
+              border-bottom: .3rem solid $font-color;
+            }
+
+            &:hover {
+              cursor: pointer;
+              background-color: $body-back;
+              border-bottom: .3rem solid $font-color;
+            }
+
+            &.last-list {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+
+      &-body {
+        height: 100%;
+        padding-top: 2rem;
+
+        .open-image {
+          &.close {
+            display: none;
+          }
+
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          left: 0;
+          z-index: 100;
+          transition: all ease .4s;
+          @include flex-display(flex, center, center);
+          background-color: rgba(114, 112, 112, .9);
+
+          img {
+            width: 50%;
+            z-index: 1000;
+          }
+        }
+
+        &-header {
+          @include flex-display(flex, center, flex-start);
+          margin-bottom: 1rem;
+
+          li {
+            width: 10.8%;
+            text-align: center;
+            font-size: 1.4rem;
+
+            &.user-img {
+              width: 5%;
+
+            }
+          }
+        }
+
+        .unknown-users-list {
+          position: relative;
+          @include flex-display(flex, flex-start, stretch);
+
+          .open-unknown {
+            top: 0;
+            bottom: 0;
+            width: 0;
+            right: 0;
+            background-color: aqua;
+            position: absolute;
+          }
+
+          .unknown_img {
+            position: relative;
+            width: 15%;
+            margin: 1rem;
+
+            i {
+              font-size: 1.4rem;
+              color: $primary-color;
+              position: absolute;
+              right: 1rem;
+              top: 1rem;
+
+              &:hover {
+                cursor: pointer;
+              }
+            }
+
+            img {
+              width: 100%;
+            }
+
+            p {
+              text-align: center;
+              font-size: 1.6rem;
+            }
+          }
+
+        }
+
+        &-table {
+          @include flex-display(flex, center, flex-start);
+          border-bottom: .1rem solid white;
+
+          &:nth-child(odd) {
+            background-color: white;
+          }
+
+          // &.dark{
+          background-color: $body-back;
+
+          // }
+          &:hover {
+            cursor: pointer;
+            opacity: .8;
+          }
+
+          li {
+            width: 10.8%;
+            text-align: center;
+            font-size: 1.2rem;
+            color: $font-color;
+            padding: 1rem 0;
+
+            &.user-img {
+              width: 5%;
+            }
+
+            img {
+              border-radius: .5rem;
+              width: 3rem;
+              height: 3rem;
+            }
+          }
+        }
+      }
+
+    }
+
+  }
+
+}
+

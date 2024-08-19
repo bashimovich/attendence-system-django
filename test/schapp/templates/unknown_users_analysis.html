@@ -1,0 +1,15 @@
+{% load static %}
+
+{% block content %}
+
+<div class="open-image close" onclick="close_image(this)"></div>
+<div class="unknown-users-list">
+    {% for user in data %}
+    <div class="unknown_img" onclick="open_image('{{user.img}}')">
+        <i class="fas fa-trash" onclick="delete_unknown('{{ user.date_time }}')"></i>
+        <img src="/{{user.img}}" alt="">
+        <p>{{ user.date_time }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'layouts/main.html' %}
+{% load static %}
+{% block 'style-script' %}
+<script src="{% static 'jquery/jquery.min.js' %}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+<div class="content">
+                <div class="camera">
+                    <img src="{% url 'videostream' stream_path='monitoring' %}" alt="">
+                </div>
+
+                <div class="monitoring-known-users-list">
+                    <div class="monitoring-known-users-list-header">
+                        <h1 id="known-users" class="active" onclick="known_click()">Tanalan Şahsyýetler</h1>
+                        <h1 id="unknown-users" onclick="unknown_click()">Nätanyş Şahsyýetler</h1>
+                    </div>
+                    <div id="monitoring-known-unknown">
+                    </div>
+                </div>
+
+            </div>
+            <script>
+                const known_var = document.querySelector("#known-users")
+                const unknown_var = document.querySelector("#unknown-users")
+                function known_click() {
+                    if (unknown_var.classList.value == 'active') {
+                        unknown_var.classList.remove("active")
+                    }
+                    known_var.classList.add("active")
+                    test()
+                }
+                function unknown_click(){
+                    if (known_var.classList.value == 'active') {
+                        known_var.classList.remove("active")
+                    }
+                    unknown_var.classList.add("active")
+                    unknown()
+                }
+            </script>
+            <script>
+                function test() {
+                    if (known_var.classList.value == 'active') {
+                        $.ajax({
+                            type: "GET",
+                            url : "detected-users",
+                            success:function(response){
+                                    document.querySelector("#monitoring-known-unknown").innerHTML = response
+                            },
+                            error:function(err){
+                                console.log(err)
+                            }
+                        })
+                    }
+                }
+                setInterval(function(){
+                    test()
+                }, 2000)
+            </script>
+            <script>
+                function unknown() {
+                    if (unknown_var.classList.value == 'active') {
+                        $.ajax({
+                            type: "GET",
+                            url : "unknown-users",
+                            success:function(response){
+                                    document.querySelector("#monitoring-known-unknown").innerHTML = response
+                            },
+                            error:function(err){
+                                console.log(err)
+                            }
+                        })
+                    }
+                }
+                setInterval(function(){
+                    unknown()
+                }, 5000)
+            
+            </script>
+    
+{% endblock content %}
+    

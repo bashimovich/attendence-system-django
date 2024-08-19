@@ -1,0 +1,35 @@
+{% load static %}
+
+{% block content %}
+        <ul class="observation-body-header">
+            <li class="user-img">Şahsyýetiň Suraty</li>
+            <li>Ady</li>
+            <li>Familiýasy</li>
+            <li>Atasynyň Ady</li>
+            <li>Öý Salgysy</li>
+            <li>Eýeleyän Wezipesi</li>
+            <li>Tel</li>
+            <li>Email</li>
+            <!-- <li>Hasaba Alnan Wagty</li> -->
+            <li>Pozmak</li>
+        </ul>
+        
+        {% if data %}
+            {% for user in data %}
+            <ul class="observation-body-table">
+                <li class="user-img"><img src="{{ user.avatar.url }}" alt=""></li>
+                <li>{{ user.firstname }}</li>
+                <li>{{ user.surname }}</li>
+                <li>{{ user.fathersname }}</li>
+                <li>{{ user.address }}</li>
+                <li>{{ user.job_s }}</li>
+                <li>{{ user.phone }}</li>
+                <li>{{ user.email }}</li>
+                <!-- <li>{{ user.created_at }}</li> -->
+                <li onclick="delete_known('{{ user.action_id }}', '{{ user.job }}')"><i class="fas fa-trash"></i></li>
+            </ul>
+            {% endfor %}
+        {% else %}
+        <p style="text-align:center; padding:10rem 0;">Empty List</p>
+        {% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% load static %}
+
+{% block content %}
+    {% for user in data %}
+        <div class="user-info">
+            <img src="{{ user.avatar.url }}" alt="">
+            <p>{{ user.firstname }} {{ user.surname}}</p>
+            <p class="job">{{ user.job_s }}</p>
+        </div>
+    {% endfor %}
+
+{% endblock %}

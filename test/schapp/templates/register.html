@@ -1,0 +1,160 @@
+{% extends 'layouts/main.html' %}
+{% load static %}
+
+{% block 'style-script' %}
+<script src="{% static 'jquery/jquery.min.js' %}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+    
+<div class="registration">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="">
+                Ady:
+            </label>
+            <input type="text" 
+                {% if reg_user %}
+                    value="{{ reg_user.firstname }}"
+                    disabled
+                {% endif %}
+                 name="firstname" required>
+        </div>
+        <div>
+            <label for="">
+                Familiýasy:
+            </label>
+            <input type="text" 
+            {% if reg_user %}
+                value="{{ reg_user.surname }}"
+                disabled
+            {% endif %} name="surname" required>
+        </div>
+        <div>
+            <label for="">
+                Atasynyň Ady:
+            </label>
+            <input type="text" 
+            {% if reg_user %}
+                value="{{ reg_user.fathersname }}"
+                disabled
+            {% endif %}
+            name="fathersname">
+        </div>
+        <div>
+            <label for="">
+                Öý Salgysy:
+            </label>
+            <input type="text" 
+            {% if reg_user %}
+                value="{{ reg_user.address }}"
+                disabled
+            {% endif %}
+            name="address" required>
+        </div>
+        <div>
+            <label for="">
+                Eýeleyän Wezipesi:
+            </label>
+            <select name="job" required aria-label="Select a job">
+                <option value="0">Mugallym</option>
+                <option value="1">1-nji synp</option>
+                <option value="2">2-nji synp</option>
+                <option value="3">3-nji synp</option>
+                <option value="4">4-nji synp</option>
+                <option value="5">5-nji synp</option>
+                <option value="6">6-nji synp</option>
+                <option value="7">7-nji synp</option>
+                <option value="8">8-nji synp</option>
+                <option value="9">9-nji synp</option>
+                <option value="10">10-nji synp</option>
+                <option value="11">11-nji synp</option>
+                <option value="12">Beýleki Işgärler</option>
+            </select>
+        </div>
+        <div>
+            <label for="">
+                Tel:
+            </label>
+            <input type="text" 
+            {% if reg_user %}
+                value="{{ reg_user.phone }}"
+                disabled
+            {% endif %}
+            name="phone" required>
+        </div>
+        <div>
+            <label for="">
+                Email:
+            </label>
+            <input type="email" 
+            {% if reg_user %}
+                value="{{ reg_user.email }}"
+                disabled
+            {% endif %}
+            name="email" required>
+        </div>
+        <div>
+            <label for="">
+                Şahsyýetiň Suraty:
+            </label>
+            <input type="file" {% if reg_user %}
+             disabled {% endif %} name="avatar" required>
+        </div>
+        <input 
+        {% if reg_user %}
+            disabled
+        {% endif %}
+             type="submit" value="NEXT">
+    </form>
+    <div class="registration-camera">
+        <div class="tablet-user" id="timer">
+            <img class="tablet" src="{% static 'update-scss/svg-icons/electronics/elc003.svg' %}" alt="">
+            <img class="user" src="{% static 'update-scss/svg-icons/communication/com013.svg' %}" alt="">
+        </div>
+        {% if reg_user %}
+        <script>
+            var seconds_left = 4 
+            var isRun = "True" 
+            var isRunRegCam = "True" 
+            function videoStream() {
+                document.getElementById("timer").innerHTML = `<img src="{% url 'videostream' stream_path='registration' %}" alt="">`
+            }
+            var interval = setInterval(function(){
+                if (isRun == "True") {
+                    document.getElementById("timer").innerHTML= `<h1>${--seconds_left}</h1>`
+                    if (seconds_left <= 0) {
+                        videoStream()
+                        isRun="False"
+                    }
+                }
+            }, 1000)
+            function reg_cam_time() {
+                if (isRunRegCam == "True") {
+                    $.ajax({
+                        type: "GET",
+                        url : "registration-time",
+                        success:function(response){
+                            if (response == "True") {
+                                isRunRegCam = "False"
+                                document.getElementById("timer").innerHTML = `<a href="{% url 'home'  %}">DONE</a>`
+                            }
+                        },
+                        error:function(err){
+                            console.log(err)
+                        }
+                    })
+                }
+            }
+            setInterval(function(){
+                reg_cam_time()
+            }, 1000)
+
+        </script>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
+    

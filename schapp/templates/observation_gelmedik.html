@@ -1,0 +1,82 @@
+{% extends 'layouts/main.html' %}
+{% load static %}
+
+
+{% block func %}
+onload = gelmedik_onload()
+{% endblock func %}
+    
+
+{% block 'style-script' %}
+<script src="{% static 'jquery/jquery.min.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="observation">
+    <div class="observation-header">
+        <ul id="menu-list">
+            <li onclick="gelmedik(this)" class="active" id='0' value="0">Mugallym</li>
+            <li onclick="gelmedik(this)" id="1" value="1">1-nji synp</li>
+            <li onclick="gelmedik(this)" id="2" value="2">2-nji synp</li>
+            <li onclick="gelmedik(this)" id="3" value="3">3-nji synp</li>
+            <li onclick="gelmedik(this)" id="4" value="4">4-nji synp</li>
+            <li onclick="gelmedik(this)" id="5" value="5">5-nji synp</li>
+            <li onclick="gelmedik(this)" id="6" value="6">6-nji synp</li>
+            <li onclick="gelmedik(this)" id="7" value="7">7-nji synp</li>
+            <li onclick="gelmedik(this)" id="8" value="8">8-nji synp</li>
+            <li onclick="gelmedik(this)" id="9" value="9">9-nji synp</li>
+            <li onclick="gelmedik(this)" id="10" value="10">10-nji synp</li>
+            <li onclick="gelmedik(this)" id="11" value="11">11-nji synp</li>
+            <li class="last-list" onclick="gelmedik(this)" id="12"value="12">Beýlekiler</li>
+        </ul>
+    </div>
+    <div class="observation-body" id="user-analysis-card">
+    </div>
+
+</div>
+    <script>
+        const menulist = document.querySelector("#menu-list")
+        function gelmedik(e) {
+            menulist.querySelectorAll(".active").forEach(li => {
+                li.classList.remove('active')
+            })
+            e.classList.add("active")
+            $.ajax({
+                type: "GET",
+                url : `gelmedik-analysis/${e.value}`,
+                success:function(response){
+                    document.querySelector("#user-analysis-card").innerHTML = response
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+        }
+        function gelmedik_onload() {
+            $.ajax({
+                type: "GET",
+                url : `gelmedik-analysis/${0}`,
+                success:function(response){
+                    document.querySelector("#user-analysis-card").innerHTML = response
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+        }
+    </script>
+    <script>
+        function delete_known(e, ee) {
+            $.ajax({
+                type: "GET",
+                url : `known-users-delete/${e}`,
+                success:function(response){
+                    known(document.getElementById(`${ee}`))
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+        }
+    </script>
+{% endblock %}
